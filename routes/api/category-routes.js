@@ -48,18 +48,19 @@ router.post('/', async (req, res) => {
 // update a category by its `id` value -- activity 14 & 17 
 router.put('/:id', async (req, res) => {
   try {
-  const categoryData = await Category.update(req.body,{ //req.body refers to the specifc id the user is requesting to change 
-    where: {
-      id: req.params.id, // request parameters in the URL
-  })
-  if (!categoryData[0]) {
-    res.status(404).json({ message: 'No category with this id!' });
-    return;
+    const categoryData = await Category.update(req.body,{ //req.body refers to the specifc id the user is requesting to change 
+      where: {
+        id: req.params.id, // request parameters in the URL
+      }
+    });
+    if (!categoryData[0]) {
+      res.status(404).json({ message: 'No category with this id!' });
+      return;
+    }
+    res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err);
   }
-  res.status(200).json(categoryData);
-} catch (err) {
-  res.status(500).json(err);
-}
 });
 
 
