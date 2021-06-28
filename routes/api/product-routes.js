@@ -10,7 +10,8 @@ router.get('/', async (req, res) => {
       // be sure to include its associated Category and Tag data
       include: [{ model: Category}, { model: Tag}]
     });
-    res.status(200).json(productData);
+    console.log(productData);
+    res.json(productData);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -77,6 +78,7 @@ router.post('/', (req, res) => {
 
 // update product
 router.put('/:id', (req, res) => {
+  console.log(req.body)
   // update product data
   Product.update(req.body, {
     where: {
@@ -111,10 +113,10 @@ router.put('/:id', (req, res) => {
       ]);
     })
     .then((updatedProductTags) => res.json(updatedProductTags))
-    .catch((err) => {
-      // console.log(err);
-      res.status(400).json(err);
-    });
+    // .catch((err) => {
+    //   // console.log(err);
+    //   res.status(400).json(err);
+    // });
 });
 
 // delete one product by its `id` value
